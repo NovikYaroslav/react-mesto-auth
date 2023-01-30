@@ -10,6 +10,7 @@ import EditAvatarProfile from "./EditAvatarProfile";
 import AddPlacePopup from "./AddPlacePopup";
 import ImagePopup from "./ImagePopup";
 import ConfirmationPopup from "./ConfirmationPopup";
+import PopupRegisterStatus from "./PopupRegisterStatus"
 import yandexApi from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -139,6 +140,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
+        <PopupRegisterStatus />
         <Header />
         <Register />
         {/* <Main
