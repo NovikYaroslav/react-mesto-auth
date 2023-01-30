@@ -15,8 +15,8 @@
 @import url(./blocks/register/__question/register__question.css);
 @import url(./blocks/register/__login-button/register__login-button.css);
 
-
-
+@import url(./blocks/register/__status-sign/register__status-sign.css);
+@import url(./blocks/register/__status-title/register__status-title.css);
 
 
 @import url(./blocks/profile/profile.css);

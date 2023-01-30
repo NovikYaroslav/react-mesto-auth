@@ -1,4 +1,5 @@
 import success from "./../image/success.svg";
+import fail from "./../image/fail.svg"
 
 export default function PopupRegisterStatus() {
     return (
@@ -17,9 +18,11 @@ export default function PopupRegisterStatus() {
         >
        
         </div> */}
-        <img className="register" src={success}></img>
+        {/* знак меняется в зависимости от стейта регистрации */}
+        <img className="register__status-sign" src={fail}></img>
+        {/* надпись меняется в зависимости от стейта регистрации */}
         <h2
-          className="popup__title" 
+          className="register__status-title" 
         >
         Вы успешно зарегистрировались!
         </h2>

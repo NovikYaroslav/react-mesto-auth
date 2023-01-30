@@ -140,7 +140,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <PopupRegisterStatus />
+  
         <Header />
         <Register />
         {/* <Main
@@ -183,6 +183,7 @@ function App() {
           onConfirmation={handleCardDeleteConfirmation}
           card={cardToDelete}
         />
+              {/* <PopupRegisterStatus /> */}
       </div>
     </CurrentUserContext.Provider>
   );
