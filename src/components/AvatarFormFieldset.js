@@ -1,8 +1,8 @@
 function AvatarFormFieldset({ avatarRef, formValidator }) {
   return (
-    <fieldset className="popup-fieldset">
+    <fieldset className="forms-fieldset">
       <input
-        className="popup-fieldset__input popup-fieldset__input_value_avatar"
+        className="forms-fieldset__input forms-fieldset__input_value_avatar"
         required
         type="url"
         name="avatarLink"
@@ -11,7 +11,7 @@ function AvatarFormFieldset({ avatarRef, formValidator }) {
         onChange={formValidator.handleChange}
         ref={avatarRef}
       />
-      <span className="popup__error">{formValidator.errors["avatarLink"]}</span>
+      <span className="forms-fieldset__error">{formValidator.errors["avatarLink"]}</span>
     </fieldset>
   );
 }

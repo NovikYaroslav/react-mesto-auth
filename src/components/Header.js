@@ -9,7 +9,7 @@ function Header() {
         alt="Логотип проекта Место"
       />
       <div className="login-bar">
-      <p className="login-bar__user-email">yaroslavnowik@yandex.ru</p>
+      <p className="login-bar__user-email"></p>
       <button className="login-bar__button">Войти</button>
       </div>
 

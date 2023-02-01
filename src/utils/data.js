@@ -1,11 +1,3 @@
-export const elements = {
-  forms: ".popup__form",
-  inputs: ".popup-fieldset__input",
-  submitButtons: ".popup__save",
-  submitButtonsInactive: "popup__save_inactive",
-  inputsError: "popup-fieldset__input_error",
-};
-
 export const apiconfig = {
   url: "https://mesto.nomoreparties.co",
   teamId: "cohort-55",

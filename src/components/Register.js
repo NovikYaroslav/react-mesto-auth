@@ -1,49 +1,44 @@
 export default function Register() {
 
-
-    // переименовать fieldset
-
-
-    
     return (
-        <div className="register">
-        <div className="register__container">
-          <h2 className="register__title">Регистрация</h2>
+        <div className="entry">
+        <div className="entry__container">
+          <h2 className="entry__title">Регистрация</h2>
           
           <form
-            className="register__form"
+            className="forms"
             name="email"
             // onSubmit={onSubmit}
             noValidate
           >
-    <fieldset className="popup-fieldset">
+    <fieldset className="forms-fieldset">
       <input
-        className="popup-fieldset__input register-fieldset__input_value_name"
+        className="forms-fieldset__input forms-fieldset__input_white register-fieldset__input_value_name"
         required
         minLength="2"
         maxLength="40"
         type="text"
-        name="userName"
+        name="Email"
         placeholder="Email"
         // value={formValidator.values["userName"] || ""}
         // onChange={formValidator.handleChange}
       />
-      <span className="popup__error"></span>
+      <span className="forms-fieldset__error"></span>
       <input
-        className="popup-fieldset__input register-fieldset__input_value_about"
+        className="forms-fieldset__input forms-fieldset__input_white register-fieldset__input_value_about"
         required
         minLength="2"
         maxLength="200"
         type="text"
-        name="about"
+        name="Password"
         placeholder="Пароль"
         // value={formValidator.values["about"] || ""}
         // onChange={formValidator.handleChange}
       />
-      <span className="popup__error"></span>
+      <span className="forms-fieldset__error"></span>
     </fieldset>
             <button
-            className="register__save"
+            className="forms__save forms__save_entry"
             //   className={`popup__save ${!isValid ? "popup__save_inactive" : ""}`}
               type="submit"
             //   disabled={!isValid}
@@ -52,7 +47,7 @@ export default function Register() {
               Зарегистрироваться
             </button>
           </form>
-          <p className="register__question">Уже зарегистрированы?<button className="register__login-button">Войти</button></p>
+          <p className="entry__question">Уже зарегистрированы?<button className="entry__login-button">Войти</button></p>
         </div>
       </div>
 

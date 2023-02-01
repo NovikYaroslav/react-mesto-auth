@@ -1,28 +1,21 @@
 import success from "./../image/success.svg";
 import fail from "./../image/fail.svg"
 
-export default function PopupRegisterStatus() {
+export default function InfoTooltip({ isOpen, onClose }) {
     return (
-        <div className="popup popup_opened">
+        <div className={`popup ${isOpen ? "popup_opened" : ""}`}>
       <div className="popup__container">
         <button
           className="popup__close" 
           type="button"
           aria-label="Кнопка закрытия модального окна"
+          onClick={onClose}
         ></button>
-        {/* <div
-          className="popup__form"
-        //   name={`user-${name}`}
-        //   onSubmit={onSubmit}
-          noValidate
-        >
-       
-        </div> */}
         {/* знак меняется в зависимости от стейта регистрации */}
-        <img className="register__status-sign" src={fail}></img>
+        <img className="popup__status-sign" src={fail}></img>
         {/* надпись меняется в зависимости от стейта регистрации */}
         <h2
-          className="register__status-title" 
+          className="popup__status-title" 
         >
         Вы успешно зарегистрировались!
         </h2>

@@ -1,8 +1,8 @@
 function CardFormFieldset({ formValidator }) {
   return (
-    <fieldset className="popup-fieldset">
+    <fieldset className="forms-fieldset">
       <input
-        className="popup-fieldset__input popup-fieldset__input_value_card-title"
+        className="forms-fieldset__input forms-fieldset__input_value_card-title"
         required
         minLength="2"
         maxLength="30"
@@ -12,11 +12,11 @@ function CardFormFieldset({ formValidator }) {
         value={formValidator.values["name"] || ""}
         onChange={formValidator.handleChange}
       />
-      <span className="popup__error" id="name-error">
+      <span className="forms-fieldset__error" id="name-error">
         {formValidator.errors["name"]}
       </span>
       <input
-        className="popup-fieldset__input popup-fieldset__input_value_card-photo"
+        className="forms-fieldset__input forms-fieldset__input_value_card-photo"
         required
         type="url"
         name="link"
@@ -24,7 +24,7 @@ function CardFormFieldset({ formValidator }) {
         value={formValidator.values["link"] || ""}
         onChange={formValidator.handleChange}
       />
-      <span className="popup__error">{formValidator.errors["link"]}</span>
+      <span className="forms-fieldset__error">{formValidator.errors["link"]}</span>
     </fieldset>
   );
 }

@@ -25,14 +25,14 @@ function PopupWithForm({
           {title}
         </h2>
         <form
-          className="popup__form"
+          className="forms"
           name={`user-${name}`}
           onSubmit={onSubmit}
           noValidate
         >
           {children}
           <button
-            className={`popup__save ${!isValid ? "popup__save_inactive" : ""}`}
+            className={`forms__save ${!isValid ? "forms__save_inactive" : ""}`}
             type="submit"
             disabled={!isValid}
           >

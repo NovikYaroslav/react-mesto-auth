@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
+import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 import "./../index";
+import ProtectedRouteElement from "./ProtectedRoute";
 import Header from "./Header";
 import Register from "./Register";
+import Login from "./Login"
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
@@ -10,15 +13,17 @@ import EditAvatarProfile from "./EditAvatarProfile";
 import AddPlacePopup from "./AddPlacePopup";
 import ImagePopup from "./ImagePopup";
 import ConfirmationPopup from "./ConfirmationPopup";
-import PopupRegisterStatus from "./PopupRegisterStatus"
+import InfoTooltip from "./InfoTooltip"
 import yandexApi from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isConformationPopupOpen, setisConformationPopupOpen] = useState(false);
+  const [isInfoTooltipOpen, setisInfoTooltipOpen] = useState(true);
   const [selectedCard, setSelectedCard] = useState({});
   const [cardToDelete, setCardToDelete] = useState({});
   const [avatarUpdateMessage, setAvatarUpdateMessage] = useState("Сохранить");
@@ -53,6 +58,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setisConformationPopupOpen(false);
+    setisInfoTooltipOpen(false)
     setSelectedCard({});
   }
 
@@ -138,11 +144,16 @@ function App() {
   }
 
   return (
+    // <BrowserRouter>
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
   
         <Header />
+        {/* <Routes> */}
+        {/* <Route path="/" element={loggedIn ? <Navigate to="/diary" replace /> : <Navigate to="/sign-up" replace />} />
+        <Route path="/sign-up" element={ <Register />} /> */}
         <Register />
+        {/* <Login /> */}
         {/* <Main
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
@@ -152,6 +163,7 @@ function App() {
           onCardDelete={handleCardDelete}
           cards={cards}
         /> */}
+        {/* </Routes> */}
         <Footer />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
@@ -183,9 +195,10 @@ function App() {
           onConfirmation={handleCardDeleteConfirmation}
           card={cardToDelete}
         />
-              {/* <PopupRegisterStatus /> */}
+              <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups}/>
       </div>
     </CurrentUserContext.Provider>
+    // </BrowserRouter>
   );
 }
 

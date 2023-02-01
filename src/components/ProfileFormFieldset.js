@@ -1,8 +1,8 @@
 function ProfileFormFieldset({ formValidator }) {
   return (
-    <fieldset className="popup-fieldset">
+    <fieldset className="forms-fieldset">
       <input
-        className="popup-fieldset__input popup-fieldset__input_value_name"
+        className="forms-fieldset__input forms-fieldset__input_value_name"
         required
         minLength="2"
         maxLength="40"
@@ -12,9 +12,9 @@ function ProfileFormFieldset({ formValidator }) {
         value={formValidator.values["userName"] || ""}
         onChange={formValidator.handleChange}
       />
-      <span className="popup__error">{formValidator.errors["userName"]}</span>
+      <span className="forms-fieldset__error">{formValidator.errors["userName"]}</span>
       <input
-        className="popup-fieldset__input popup-fieldset__input_value_about"
+        className="forms-fieldset__input forms-fieldset__input_value_about"
         required
         minLength="2"
         maxLength="200"
@@ -24,7 +24,7 @@ function ProfileFormFieldset({ formValidator }) {
         value={formValidator.values["about"] || ""}
         onChange={formValidator.handleChange}
       />
-      <span className="popup__error">{formValidator.errors["about"]}</span>
+      <span className="forms-fieldset__error">{formValidator.errors["about"]}</span>
     </fieldset>
   );
 }
