@@ -23,7 +23,8 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isConformationPopupOpen, setisConformationPopupOpen] = useState(false);
-  const [isInfoTooltipOpen, setisInfoTooltipOpen] = useState(true);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isRegistrationSucced, setIsRegistrationSucced] = useState(true);
   const [selectedCard, setSelectedCard] = useState({});
   const [cardToDelete, setCardToDelete] = useState({});
   const [avatarUpdateMessage, setAvatarUpdateMessage] = useState("Сохранить");
@@ -40,6 +41,22 @@ function App() {
       })
       .catch((error) => console.log(error));
   }, []);
+
+ function handleRegistration(email, password) {
+  yandexApi.register(email, password).then((data) => {
+    console.log(data)
+    setIsInfoTooltipOpen(true)
+  }).catch((error) => {
+    setIsInfoTooltipOpen(true)
+    setIsRegistrationSucced(false)
+    console.log(error)})
+ }
+
+ function handleAuthorization(email, password) {
+  console.log("авторизируюсь")
+  yandexApi.authorize(email, password)
+ }
+
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -58,7 +75,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setisConformationPopupOpen(false);
-    setisInfoTooltipOpen(false);
+    setIsInfoTooltipOpen(false);
     setSelectedCard({});
   }
 
@@ -174,8 +191,8 @@ function App() {
               />
             }
           />
-          <Route path="/sign-up" element={<Register />} />
-          <Route path="/sign-in" element={<Login />} />
+          <Route path="/sign-up" element={<Register onRegister={handleRegistration}/>} />
+          <Route path="/sign-in" element={<Login onAuthoriz={handleAuthorization}/>} />
         </Routes>
         <Footer />
         <EditProfilePopup
@@ -208,7 +225,7 @@ function App() {
           onConfirmation={handleCardDeleteConfirmation}
           card={cardToDelete}
         />
-        <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups} />
+        <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups} isRegistrationSucced={isRegistrationSucced}/>
       </div>
     </CurrentUserContext.Provider>
   );

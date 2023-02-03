@@ -1,4 +1,4 @@
-import { apiconfig } from "./data";
+import { apiconfig, BASE_URL } from "./data";
 
 class Api {
   constructor({ url, teamId, headers }) {
@@ -16,6 +16,53 @@ class Api {
       );
     }
   }
+
+// ошибка не приходит в консоль
+  register(email, password) {
+    console.log(email, password);
+    return fetch(`${BASE_URL}/signup`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ password, email }),
+    })
+      .then((response) => {
+        try {
+          if (response.status === 200 || 201) {
+            return response.json();
+          }
+        } catch (error) {
+          return error;
+        }
+      })
+      .then(this._checkServerResponse);
+  }
+
+// ошибка не приходит в консоль
+authorize(email, password) {
+  return fetch(`${BASE_URL}/signin`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({email, password})
+  })
+  .then((response => response.json()))
+  .then((data) => {
+    console.log(data)
+    // if (data.jwt){
+   
+    //   localStorage.setItem('jwt', data.jwt);
+    //   return data;
+    // }
+  })
+  .catch(err => console.log(err))
+}; 
+
+
 
   getCards() {
     return fetch(`${this._url}/v1/${this._teamId}/cards`, {

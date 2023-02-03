@@ -2,12 +2,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import useFormWithValidation from "../utils/formValidator";
 
-export default function Register() {
+export default function Register({onRegister}) {
   const formValidator = useFormWithValidation();
   const navigate = useNavigate();
   function handleSubmit(e) {
     e.preventDefault();
-    navigate("/sign-in", { replace: true });
+    onRegister(formValidator.values["Email"], formValidator.values["Password"])
+    formValidator.resetForm();
+    // navigate("/sign-in", { replace: true });
   }
 
   return (
@@ -35,7 +37,7 @@ export default function Register() {
               className="forms-fieldset__input forms-fieldset__input_white register-fieldset__input_value_about"
               required
               minLength="4"
-              maxLength="20"
+              maxLength="200"
               type="text"
               name="Password"
               placeholder="Пароль"
