@@ -146,7 +146,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header />
+        <Header loggedIn={loggedIn}/>
         <Routes>
           <Route
             path="/"
@@ -216,19 +216,3 @@ function App() {
 
 export default App;
 
-{
-  /* <Register /> */
-}
-{
-  /* <Login />
-
-          {/* <Main
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-          cards={cards}
-        /> */
-}

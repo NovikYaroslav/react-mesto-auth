@@ -1,54 +1,65 @@
+
+import { Link, useNavigate } from "react-router-dom";
+import useFormWithValidation from "../utils/formValidator";
+
 export default function Register() {
+  const formValidator = useFormWithValidation();
+  const navigate = useNavigate();
+  function handleSubmit(e) {
+    e.preventDefault();
+    navigate("/sign-in", { replace: true });
+  }
+
   return (
     <div className="entry">
       <div className="entry__container">
         <h2 className="entry__title">Регистрация</h2>
 
-        <form
-          className="forms"
-          name="email"
-          // onSubmit={onSubmit}
-          noValidate
-        >
+        <form className="forms" name="email" onSubmit={handleSubmit} noValidate>
           <fieldset className="forms-fieldset">
             <input
               className="forms-fieldset__input forms-fieldset__input_white register-fieldset__input_value_name"
               required
               minLength="2"
-              maxLength="40"
-              type="text"
+              maxLength="50"
+              type="email"
               name="Email"
               placeholder="Email"
-              // value={formValidator.values["userName"] || ""}
-              // onChange={formValidator.handleChange}
+              value={formValidator.values["Email"] || ""}
+              onChange={formValidator.handleChange}
             />
-            <span className="forms-fieldset__error"></span>
+            <span className="forms-fieldset__error">
+              {formValidator.errors["Email"]}
+            </span>
             <input
               className="forms-fieldset__input forms-fieldset__input_white register-fieldset__input_value_about"
               required
-              minLength="2"
-              maxLength="200"
+              minLength="4"
+              maxLength="20"
               type="text"
               name="Password"
               placeholder="Пароль"
-              // value={formValidator.values["about"] || ""}
-              // onChange={formValidator.handleChange}
+              value={formValidator.values["Password"] || ""}
+              onChange={formValidator.handleChange}
             />
-            <span className="forms-fieldset__error"></span>
+            <span className="forms-fieldset__error">
+              {formValidator.errors["Password"]}
+            </span>
           </fieldset>
           <button
+            // className={`forms__save_entry ${!formValidator.isValid ? "forms__save_inactive" : ""}`}
             className="forms__save_entry"
-            //   className={`popup__save ${!isValid ? "popup__save_inactive" : ""}`}
             type="submit"
-            //   disabled={!isValid}
+            disabled={!formValidator.isValid}
           >
-            {/* {buttonText} */}
             Зарегистрироваться
           </button>
         </form>
         <p className="entry__question">
           Уже зарегистрированы?
-          <button className="entry__login-button">Войти</button>
+          <Link to="/sign-in" className="entry__login-button">
+            Войти
+          </Link>
         </p>
       </div>
     </div>
