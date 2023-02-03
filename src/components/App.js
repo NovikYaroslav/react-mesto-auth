@@ -24,7 +24,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isConformationPopupOpen, setisConformationPopupOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
-  const [isRegistrationSucced, setIsRegistrationSucced] = useState(true);
+  const [isRegistrationSucced, setIsRegistrationSucced] = useState();
   const [selectedCard, setSelectedCard] = useState({});
   const [cardToDelete, setCardToDelete] = useState({});
   const [avatarUpdateMessage, setAvatarUpdateMessage] = useState("Сохранить");
@@ -42,16 +42,18 @@ function App() {
       .catch((error) => console.log(error));
   }, []);
 
+  // Запрос отправляется но не приходит ответ. Приходит ошибка.
  function handleRegistration(email, password) {
   yandexApi.register(email, password).then((data) => {
     console.log(data)
-    setIsInfoTooltipOpen(true)
+    // setIsRegistrationSucced(true)
+    // setIsInfoTooltipOpen(true)
   }).catch((error) => {
-    setIsInfoTooltipOpen(true)
-    setIsRegistrationSucced(false)
+    // setIsRegistrationSucced(false)
+    // setIsInfoTooltipOpen(true)
     console.log(error)})
  }
-
+  // Запрос отправляется но не приходит ответ. Приходит ошибка.
  function handleAuthorization(email, password) {
   console.log("авторизируюсь")
   yandexApi.authorize(email, password)
