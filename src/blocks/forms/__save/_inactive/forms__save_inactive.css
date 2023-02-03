@@ -16,7 +16,7 @@
   opacity: 0.2;
 }
 
-.forms__save:hover {
+.forms__save_inactive:hover {
   cursor: auto;
   opacity: 0.2;
 }

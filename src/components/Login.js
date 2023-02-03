@@ -37,7 +37,7 @@ export default function Login() {
       <span className="forms-fieldset__error"></span>
     </fieldset>
             <button
-            className="forms__save forms__save_entry"
+            className="forms__save_entry"
             //   className={`popup__save ${!isValid ? "popup__save_inactive" : ""}`}
               type="submit"
             //   disabled={!isValid}

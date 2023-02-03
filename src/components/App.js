@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
+import { Route, Routes, Navigate } from "react-router-dom";
 import "./../index";
 import ProtectedRouteElement from "./ProtectedRoute";
 import Header from "./Header";
 import Register from "./Register";
-import Login from "./Login"
+import Login from "./Login";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
@@ -13,7 +13,7 @@ import EditAvatarProfile from "./EditAvatarProfile";
 import AddPlacePopup from "./AddPlacePopup";
 import ImagePopup from "./ImagePopup";
 import ConfirmationPopup from "./ConfirmationPopup";
-import InfoTooltip from "./InfoTooltip"
+import InfoTooltip from "./InfoTooltip";
 import yandexApi from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -34,7 +34,7 @@ function App() {
 
   useEffect(() => {
     Promise.all([yandexApi.getUserInfoFromServer(), yandexApi.getCards()])
-        .then(([userData, initialCards]) => {
+      .then(([userData, initialCards]) => {
         setCurrentUser(userData);
         setCards(initialCards);
       })
@@ -58,7 +58,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setisConformationPopupOpen(false);
-    setisInfoTooltipOpen(false)
+    setisInfoTooltipOpen(false);
     setSelectedCard({});
   }
 
@@ -144,26 +144,39 @@ function App() {
   }
 
   return (
-    // <BrowserRouter>
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-  
         <Header />
-        {/* <Routes> */}
-        {/* <Route path="/" element={loggedIn ? <Navigate to="/diary" replace /> : <Navigate to="/sign-up" replace />} />
-        <Route path="/sign-up" element={ <Register />} /> */}
-        <Register />
-        {/* <Login /> */}
-        {/* <Main
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-          cards={cards}
-        /> */}
-        {/* </Routes> */}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              loggedIn ? (
+                <Navigate to="/main" replace />
+              ) : (
+                <Navigate to="/sign-up" replace />
+              )
+            }
+          />
+          <Route
+            path="/main"
+            element={
+              <ProtectedRouteElement
+                element={Main}
+                loggedIn={loggedIn}
+                onEditProfile={handleEditProfileClick}
+                onAddPlace={handleAddPlaceClick}
+                onEditAvatar={handleEditAvatarClick}
+                onCardClick={handleCardClick}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}
+                cards={cards}
+              />
+            }
+          />
+          <Route path="/sign-up" element={<Register />} />
+          <Route path="/sign-in" element={<Login />} />
+        </Routes>
         <Footer />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
@@ -195,11 +208,27 @@ function App() {
           onConfirmation={handleCardDeleteConfirmation}
           card={cardToDelete}
         />
-              <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups}/>
+        <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups} />
       </div>
     </CurrentUserContext.Provider>
-    // </BrowserRouter>
   );
 }
 
 export default App;
+
+{
+  /* <Register /> */
+}
+{
+  /* <Login />
+
+          {/* <Main
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
+          cards={cards}
+        /> */
+}
