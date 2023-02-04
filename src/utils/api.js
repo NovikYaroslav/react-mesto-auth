@@ -17,9 +17,7 @@ class Api {
     }
   }
 
-// ошибка не приходит в консоль
   register(email, password) {
-    console.log(email, password);
     return fetch(`${BASE_URL}/signup`, {
       method: "POST",
       headers: {
@@ -27,42 +25,36 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ password, email }),
-    })
-      .then((response) => {
-        try {
-          if (response.status === 200 || 201) {
-            return response.json();
-          }
-        } catch (error) {
-          return error;
-        }
-      })
-      .then(this._checkServerResponse);
+    }).then(this._checkServerResponse);
   }
 
-// ошибка не приходит в консоль
-authorize(email, password) {
-  return fetch(`${BASE_URL}/signin`, {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({email, password})
-  })
-  .then((response => response.json()))
-  .then((data) => {
-    console.log(data)
-    // if (data.jwt){
-   
-    //   localStorage.setItem('jwt', data.jwt);
-    //   return data;
-    // }
-  })
-  .catch(err => console.log(err))
-}; 
+  authorize(email, password) {
+    return fetch(`${BASE_URL}/signin`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then(this._checkServerResponse)
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem("jwt", data.token);
+        }
+      });
+  }
 
-
+  checkToken(jwt) {
+    return fetch(`${BASE_URL}/users/me`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`,
+      },
+    }).then(this._checkServerResponse);
+  }
 
   getCards() {
     return fetch(`${this._url}/v1/${this._teamId}/cards`, {

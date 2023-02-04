@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import "./../index";
 import ProtectedRouteElement from "./ProtectedRoute";
 import Header from "./Header";
@@ -31,7 +31,9 @@ function App() {
   const [profileUpdateMessage, setProfileUpdateMessage] = useState("Сохранить");
   const [placeAddMessage, setPlaceAddMessage] = useState("Создать");
   const [currentUser, setCurrentUser] = useState({});
+  const [userEmail, setUserEmail] = useState("");
   const [cards, setCards] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     Promise.all([yandexApi.getUserInfoFromServer(), yandexApi.getCards()])
@@ -42,23 +44,63 @@ function App() {
       .catch((error) => console.log(error));
   }, []);
 
-  // Запрос отправляется но не приходит ответ. Приходит ошибка.
- function handleRegistration(email, password) {
-  yandexApi.register(email, password).then((data) => {
-    console.log(data)
-    // setIsRegistrationSucced(true)
-    // setIsInfoTooltipOpen(true)
-  }).catch((error) => {
-    // setIsRegistrationSucced(false)
-    // setIsInfoTooltipOpen(true)
-    console.log(error)})
- }
-  // Запрос отправляется но не приходит ответ. Приходит ошибка.
- function handleAuthorization(email, password) {
-  console.log("авторизируюсь")
-  yandexApi.authorize(email, password)
- }
+  useEffect(() => {
+    tokenCheck();
+  }, []);
 
+  function tokenCheck() {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      yandexApi.checkToken(jwt).then((res) => {
+        if (res) {
+          setLoggedIn(true);
+          setUserEmail(`${res.data.email}`);
+          navigate("/", { replace: true });
+        }
+      });
+    }
+  }
+
+  function handleRegistration(email, password) {
+    yandexApi
+      .register(email, password)
+      .then(() => {
+        setIsRegistrationSucced(true);
+        setIsInfoTooltipOpen(true);
+        navigate("/sign-in", { replace: true });
+      })
+      .catch((error) => {
+        setIsRegistrationSucced(false);
+        setIsInfoTooltipOpen(true);
+        console.log(error);
+      });
+  }
+
+  function handleAuthorization(email, password) {
+    yandexApi
+      .authorize(email, password)
+      .then(() => {
+        setLoggedIn(true);
+        setUserEmail(email);
+        navigate("/", { replace: true });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function handleLogout() {
+    if (loggedIn) {
+      localStorage.removeItem("jwt");
+      setLoggedIn(false);
+      navigate("/sign-up", { replace: true });
+    }
+    if (window.location.pathname == "/sign-in") {
+      navigate("/sign-up", { replace: true });
+    } else {
+      navigate("/sign-in", { replace: true });
+    }
+  }
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -165,20 +207,24 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header loggedIn={loggedIn}/>
+        <Header
+          loggedIn={loggedIn}
+          userEmail={userEmail}
+          handleLogout={handleLogout}
+        />
         <Routes>
           <Route
-            path="/"
+            path="*"
             element={
               loggedIn ? (
                 <Navigate to="/main" replace />
               ) : (
-                <Navigate to="/sign-up" replace />
+                <Navigate to="/sign-in" replace />
               )
             }
           />
           <Route
-            path="/main"
+            path="/"
             element={
               <ProtectedRouteElement
                 element={Main}
@@ -193,8 +239,14 @@ function App() {
               />
             }
           />
-          <Route path="/sign-up" element={<Register onRegister={handleRegistration}/>} />
-          <Route path="/sign-in" element={<Login onAuthoriz={handleAuthorization}/>} />
+          <Route
+            path="/sign-up"
+            element={<Register onRegister={handleRegistration} />}
+          />
+          <Route
+            path="/sign-in"
+            element={<Login onAuthoriz={handleAuthorization} />}
+          />
         </Routes>
         <Footer />
         <EditProfilePopup
@@ -227,11 +279,14 @@ function App() {
           onConfirmation={handleCardDeleteConfirmation}
           card={cardToDelete}
         />
-        <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups} isRegistrationSucced={isRegistrationSucced}/>
+        <InfoTooltip
+          isOpen={isInfoTooltipOpen}
+          onClose={closeAllPopups}
+          isRegistrationSucced={isRegistrationSucced}
+        />
       </div>
     </CurrentUserContext.Provider>
   );
 }
 
 export default App;
-

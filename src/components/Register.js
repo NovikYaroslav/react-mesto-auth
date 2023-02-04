@@ -1,22 +1,19 @@
-
 import { Link, useNavigate } from "react-router-dom";
 import useFormWithValidation from "../utils/formValidator";
 
-export default function Register({onRegister}) {
+export default function Register({ onRegister }) {
   const formValidator = useFormWithValidation();
-  const navigate = useNavigate();
+
   function handleSubmit(e) {
     e.preventDefault();
-    onRegister(formValidator.values["Email"], formValidator.values["Password"])
+    onRegister(formValidator.values["Email"], formValidator.values["Password"]);
     formValidator.resetForm();
-    // navigate("/sign-in", { replace: true });
   }
 
   return (
     <div className="entry">
       <div className="entry__container">
         <h2 className="entry__title">Регистрация</h2>
-
         <form className="forms" name="email" onSubmit={handleSubmit} noValidate>
           <fieldset className="forms-fieldset">
             <input
@@ -49,7 +46,6 @@ export default function Register({onRegister}) {
             </span>
           </fieldset>
           <button
-            // className={`forms__save_entry ${!formValidator.isValid ? "forms__save_inactive" : ""}`}
             className="forms__save_entry"
             type="submit"
             disabled={!formValidator.isValid}
