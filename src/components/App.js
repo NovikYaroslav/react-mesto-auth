@@ -15,6 +15,7 @@ import ImagePopup from "./ImagePopup";
 import ConfirmationPopup from "./ConfirmationPopup";
 import InfoTooltip from "./InfoTooltip";
 import yandexApi from "../utils/api";
+import authApi from "../utils/auth";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
@@ -51,7 +52,7 @@ function App() {
   function tokenCheck() {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
-      yandexApi.checkToken(jwt).then((res) => {
+      authApi.checkToken(jwt).then((res) => {
         if (res) {
           setLoggedIn(true);
           setUserEmail(`${res.data.email}`);
@@ -62,7 +63,7 @@ function App() {
   }
 
   function handleRegistration(email, password) {
-    yandexApi
+    authApi
       .register(email, password)
       .then(() => {
         setIsRegistrationSucced(true);
@@ -77,7 +78,7 @@ function App() {
   }
 
   function handleAuthorization(email, password) {
-    yandexApi
+    authApi
       .authorize(email, password)
       .then(() => {
         setLoggedIn(true);
