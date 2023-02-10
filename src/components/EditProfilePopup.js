@@ -1,8 +1,9 @@
 import { useEffect, useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import PopupWithForm from "./PopupWithForm";
-import ProfileFormFieldset from "./ProfileFormFieldset";
 import useFormWithValidation from "../utils/formValidator";
+import Form from "./Form";
+import Input from "./Input";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, message }) {
   const currentUser = useContext(CurrentUserContext);
@@ -28,13 +29,33 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, message }) {
     <PopupWithForm
       title="Редактировать профиль"
       name="profile"
-      buttonText={message}
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit}
-      isValid={formValidator.isValid}
     >
-      <ProfileFormFieldset formValidator={formValidator} />
+      <Form
+        name="profile"
+        onSubmit={handleSubmit}
+        isValid={formValidator.isValid}
+        buttonText={message}
+        formValidator={formValidator}
+      >
+        <Input
+          minLength={2}
+          maxLength={40}
+          type={"text"}
+          name={"userName"}
+          placeholder={"Как Вас зовут?"}
+          formValidator={formValidator}
+        />
+        <Input
+          minLength={2}
+          maxLength={200}
+          type={"text"}
+          name={"about"}
+          placeholder={"Кратко о себе"}
+          formValidator={formValidator}
+        />
+      </Form>
     </PopupWithForm>
   );
 }

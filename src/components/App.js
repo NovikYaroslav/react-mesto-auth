@@ -18,10 +18,12 @@ import yandexApi from "../utils/api";
 import authApi from "../utils/auth";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isConformationPopupOpen, setisConformationPopupOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
@@ -47,7 +49,7 @@ function App() {
 
   useEffect(() => {
     tokenCheck();
-  }, []);
+  },[]);
 
   function tokenCheck() {
     const jwt = localStorage.getItem("jwt");
@@ -96,7 +98,7 @@ function App() {
       setLoggedIn(false);
       navigate("/sign-up", { replace: true });
     }
-    if (window.location.pathname == "/sign-in") {
+    if (window.location.pathname === "/sign-in") {
       navigate("/sign-up", { replace: true });
     } else {
       navigate("/sign-in", { replace: true });
@@ -121,11 +123,12 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setisConformationPopupOpen(false);
     setIsInfoTooltipOpen(false);
-    setSelectedCard({});
+    setIsImagePopupOpen(false)
   }
 
   function handleCardClick(openedCard) {
     setSelectedCard(openedCard);
+    setIsImagePopupOpen(true)
   }
 
   function handleCardLike(card) {
@@ -273,7 +276,7 @@ function App() {
           name="conformation"
           buttonText="Да"
         />
-        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+        <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />
         <ConfirmationPopup
           isOpen={isConformationPopupOpen}
           onClose={closeAllPopups}

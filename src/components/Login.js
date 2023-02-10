@@ -1,5 +1,6 @@
-import AuthFormFieldset from "./AuthFormFieldset";
 import useFormWithValidation from "../utils/formValidator";
+import Form from "./Form";
+import Input from "./Input";
 
 export default function Login({ onAuthoriz }) {
   const formValidator = useFormWithValidation();
@@ -14,17 +15,32 @@ export default function Login({ onAuthoriz }) {
     <div className="entry">
       <div className="entry__container">
         <h2 className="entry__title">Вход</h2>
-
-        <form className="forms" name="email" onSubmit={handleSubmit} noValidate>
-          <AuthFormFieldset formValidator={formValidator} />
-          <button
-            className="forms__save_entry"
-            type="submit"
-            disabled={!formValidator.isValid}
-          >
-            Войти
-          </button>
-        </form>
+        <Form
+          name="email"
+          onSubmit={handleSubmit}
+          isValid={formValidator.isValid}
+          buttonText="Зарегистрироваться"
+          blackBackground={true}
+        >
+          <Input
+            minLength={"2"}
+            maxLength={"50"}
+            type={"email"}
+            name={"Email"}
+            placeholder={"Email"}
+            formValidator={formValidator}
+            blackBackground={true}
+          />
+          <Input
+            minLength={"2"}
+            maxLength={"200"}
+            type={"password"}
+            name={"Password"}
+            placeholder={"Пароль"}
+            formValidator={formValidator}
+            blackBackground={true}
+          />
+        </Form>
       </div>
     </div>
   );

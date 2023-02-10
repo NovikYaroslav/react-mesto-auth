@@ -1,11 +1,12 @@
-import { useRef, useEffect} from "react";
+import { useRef, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
-import AvatarFormFieldset from "./AvatarFormFieldset";
-import  useFormWithValidation  from "../utils/formValidator"
+import useFormWithValidation from "../utils/formValidator";
+import Form from "./Form";
+import Input from "./Input";
 
 function EditAvatarProfile({ isOpen, onClose, onUpdateAvatar, message }) {
   const avatarRef = useRef();
-  const formValidator = useFormWithValidation()
+  const formValidator = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -15,9 +16,8 @@ function EditAvatarProfile({ isOpen, onClose, onUpdateAvatar, message }) {
   }
 
   useEffect(() => {
-    formValidator.resetForm()
+    formValidator.resetForm();
   }, [isOpen]);
-
 
   return (
     <PopupWithForm
@@ -25,11 +25,22 @@ function EditAvatarProfile({ isOpen, onClose, onUpdateAvatar, message }) {
       name="avatar"
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit}
-      buttonText={message}
-      isValid={formValidator.isValid}
     >
-      <AvatarFormFieldset avatarRef={avatarRef} formValidator={formValidator}/>
+      <Form
+        name="avatar"
+        onSubmit={handleSubmit}
+        isValid={formValidator.isValid}
+        buttonText={message}
+        formValidator={formValidator}
+      >
+        <Input
+          type={"url"}
+          name={"avatarLink"}
+          placeholder={"Ссылка на аватар"}
+          Ref={avatarRef}
+          formValidator={formValidator}
+        />
+      </Form>
     </PopupWithForm>
   );
 }

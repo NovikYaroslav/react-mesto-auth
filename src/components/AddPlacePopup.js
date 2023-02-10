@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
-import CardFormFieldset from "./CardFormFieldset";
+
 import useFormWithValidation from "../utils/formValidator";
+import Form from "./Form";
+import Input from "./Input";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, message }) {
   const formValidator = useFormWithValidation();
@@ -25,11 +27,29 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, message }) {
       name="card"
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit}
-      buttonText={message}
-      isValid={formValidator.isValid}
     >
-      <CardFormFieldset formValidator={formValidator} />
+      <Form
+        name="card"
+        onSubmit={handleSubmit}
+        isValid={formValidator.isValid}
+        buttonText={message}
+        formValidator={formValidator}
+      >
+        <Input
+          minLength={2}
+          maxLength={30}
+          type={"text"}
+          name={"name"}
+          placeholder={"Название"}
+          formValidator={formValidator}
+        />
+        <Input
+          type={"url"}
+          name={"link"}
+          placeholder={"Ссылка на картинку"}
+          formValidator={formValidator}
+        />
+      </Form>
     </PopupWithForm>
   );
 }

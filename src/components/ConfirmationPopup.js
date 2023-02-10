@@ -1,4 +1,5 @@
 import PopupWithForm from "./PopupWithForm";
+import Form from "./Form";
 
 function ConfirmationPopup({ card, isOpen, onClose, onConfirmation }) {
   function handleSubmit(e) {
@@ -12,10 +13,14 @@ function ConfirmationPopup({ card, isOpen, onClose, onConfirmation }) {
       name="confirmation"
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit}
-      buttonText="Да"
-      isValid={true}
-    />
+    >
+      <Form
+        name="confirmation"
+        onSubmit={handleSubmit}
+        isValid={true}
+        buttonText="Да"
+      />
+    </PopupWithForm>
   );
 }
 

@@ -13,5 +13,12 @@
   font-size: 14px;
   line-height: 17px;
   text-align: start;
+}
 
+.forms-fieldset__input:-webkit-autofill,
+.forms-fieldset__input:-webkit-autofill:hover,
+.forms-fieldset__input:-webkit-autofill:focus,
+.forms-fieldset__input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #000000;
 }
