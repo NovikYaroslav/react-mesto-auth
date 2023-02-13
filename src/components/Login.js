@@ -19,7 +19,7 @@ export default function Login({ onAuthoriz }) {
           name="email"
           onSubmit={handleSubmit}
           isValid={formValidator.isValid}
-          buttonText="Зарегистрироваться"
+          buttonText="Войти"
           blackBackground={true}
         >
           <Input
