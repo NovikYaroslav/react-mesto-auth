@@ -1,4 +1,4 @@
-### "Mesto"
+# "Mesto"
 
 ## One-page social network with your personal area.
 
@@ -30,7 +30,7 @@ CSS/REACT
 
 3. Adapt for devices with different screen resolution: registration page/entrance page/Header.
 
-### "Mesto"
+# "Mesto"
 
 ## Одностраничная социальная сеть с Вашей личной страницей.
 
