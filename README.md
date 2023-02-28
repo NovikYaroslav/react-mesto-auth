@@ -1,6 +1,40 @@
-# Одностраничный сайт с Вашей личной страницей.
+### "Mesto"
 
-Это мой предыдущий проэкт переписанный с использованием React.
+## One-page social network with your personal area.
+
+The site allows you to create your personal page.Share photos.And allows the other user to evaluate your photographs.
+The site consists of 3 main sections:
+
+1. Header
+2. Sections with the user data and the ability to edit the page.
+3. Sections with the main content loaded by the user.
+4. Footer
+   The site is adapted for use with Screen Reader.
+   The site is partially adapted for devices with different screen resolution.
+
+### Used technologies:
+
+CSS/REACT
+
+1. Flexbox
+2. Grid
+3. Positioning of elements
+4. Media requests.
+5. Validation of forms
+6. Work with API
+7. Registration, Authentication, Identification (JWT Token)
+8. React (useContext, useState, useEffect, useRef, useCallback)
+9. ReactRouter v.6.4.0
+
+### _What should be finished _:
+
+3. Adapt for devices with different screen resolution: registration page/entrance page/Header.
+
+### "Mesto"
+
+## Одностраничная социальная сеть с Вашей личной страницей.
+
+Сайт позволяет создать свою личную страницу. Поделиться фотографиями. И позволяет другим пользователем оценивать ваши фотокарточки.
 Сайт состоит из 3х главных секций:
 
 1. Заголовка
